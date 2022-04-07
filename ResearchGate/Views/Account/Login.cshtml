@@ -1,0 +1,21 @@
+﻿@model ResearchGate.Models.Author
+@{
+    ViewBag.Title = "Login";
+}
+
+<div class="main-block">
+
+    <form method="post" action="Login">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <h1>Login</h1>
+        <div class="info">
+            @ViewBag.ErrorMessage
+            <input type="email" name="Email" placeholder="Email">
+            <input type="password" name="Password" placeholder="Password">
+        </div>
+        <input type="submit" class="submitButton" name="submit" value="Login" />
+    </form>
+
+
+</div>
+

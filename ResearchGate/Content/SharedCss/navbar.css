@@ -1,0 +1,65 @@
+﻿
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 1000px;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+/* NAVBAR STYLING STARTS */
+.navbar {
+    display: flex;
+    
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #f5f5f5;
+    color: #fff;
+}
+ul {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+    gap: 1rem;
+    font-size: 18px;
+}
+.nav-links a {
+    font-weight: bold;
+}
+/* LOGO */
+.logo a {
+    font-size: 30px;
+    color: #1c87c9;
+    font-weight: bold;
+}
+
+
+
+/* NAVBAR MENU */
+
+
+
+ul li {
+    padding: 5px 14px;
+}
+
+.log a {
+    color: #1c87c9;
+}
+
+
+.sign {
+    background-color: #1c87c9;
+}
+.sign a {
+    color: #FFF;
+}

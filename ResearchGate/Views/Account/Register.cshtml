@@ -1,0 +1,33 @@
+﻿@model ResearchGate.Models.Author
+@{
+    ViewBag.Title = "Register";
+}
+
+<div class="main-block">
+
+    <form method="post" action="Register">
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+        <h1>Registeration</h1>
+        <div class="info">
+            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            <input class="fname" type="text" name="FirstName" placeholder="First name" autocomplete="off">
+            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            <input class="lname" type="text" name="LastName" placeholder="Last name" autocomplete="off">
+
+            
+            <input type="email" name="Email" placeholder="Email" autocomplete="off">
+            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            <input type="password" name="Password" placeholder="Password" autocomplete="off">
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            <input type="text" name="University" placeholder="University" autocomplete="off">
+            <input type="text" name="Department" placeholder="Department," autocomplete="off">
+            <input type="text" name="Mobile" placeholder="Phone number" autocomplete="off">
+        </div>
+        <input type="submit" class="submitButton" name="submit" value="Register" />
+    </form>
+
+
+</div>

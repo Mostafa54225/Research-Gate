@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
+
 namespace ResearchGate.Models
 {
     public class Author
@@ -44,6 +46,7 @@ namespace ResearchGate.Models
         public string University { get; set; }
 
         [Display(Name = "Department")]
+        [DefaultValue("General")]
         public string Department { get; set; }
 
         [Required(ErrorMessage = "Number is required")]
