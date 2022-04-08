@@ -10,6 +10,10 @@ namespace ResearchGate.Models
 {
     public class Author
     {
+        public Author()
+        {
+            this.Papers = new HashSet<Paper>();
+        }
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
@@ -30,6 +34,13 @@ namespace ResearchGate.Models
         [Required(ErrorMessage = "Last name is required")]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
+
+
+        [Required(ErrorMessage = "Username is required")]
+        [Display(Name = "Username")]
+        [StringLength(450)]
+        [Index(IsUnique = true)]
+        public string Username { get; set; }
 
 
         [Required]
@@ -56,5 +67,8 @@ namespace ResearchGate.Models
 
 
         public string ProfileImage { get; set; }
+
+
+        public virtual ICollection<Paper> Papers { get; set; }
     }
 }

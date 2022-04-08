@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using ResearchGate.Models;
 using System.Web.Security;
 
+
 namespace ResearchGate.Controllers
 {
     public class AccountController : Controller
@@ -13,6 +14,7 @@ namespace ResearchGate.Controllers
         // GET: Register
         [HttpGet]
         [AllowAnonymous]
+        [Route("register")]
         public ActionResult Register()
         {
             if (Request.IsAuthenticated)
@@ -23,6 +25,8 @@ namespace ResearchGate.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken()]
+        [Route("register")]
         public ActionResult Register(Author account)
         {
 
@@ -34,6 +38,7 @@ namespace ResearchGate.Controllers
                     var password = Utils.PasswordHashing.EncodePassword(account.Password, salt);
                     account.Password = password;
                     account.Salt = salt;
+                    account.Username = account.Username.ToLower();
                     db.Authors.Add(account);
                     bool isExist = db.Authors.Where(u => u.Email.ToLower().Equals(account.Email.ToLower())).FirstOrDefault() != null;
                     
@@ -45,8 +50,8 @@ namespace ResearchGate.Controllers
                     }
                     else
                     {
-                        ModelState.AddModelError("", "Email is Already Exist!");
-                        //return RedirectToAction("Register", new { uniqueUri = Request.RequestContext.RouteData.Values["uniqueUri"] });
+                        //ModelState.AddModelError("", "Email is Already Exist!");
+                        ViewBag.EmailError = "Email is Already Exist!";
                     }
 
                 }
@@ -58,6 +63,7 @@ namespace ResearchGate.Controllers
         // GET: Login
         [HttpGet]
         [AllowAnonymous]
+        [Route("login")]
         public ActionResult Login()
         {
             if (Request.IsAuthenticated)
@@ -68,6 +74,7 @@ namespace ResearchGate.Controllers
         }
 
         [HttpPost]
+        [Route("login")]
         public ActionResult Login(string email, string password)
         {
             try
@@ -87,8 +94,7 @@ namespace ResearchGate.Controllers
 
                         if (query != null)
                         {
-                            string username = query.Email;
-                            FormsAuthentication.SetAuthCookie(username, false);
+                            FormsAuthentication.SetAuthCookie(query.Username, false);
                             return RedirectToAction("Index", "Home");
                         }
                         ViewBag.ErrorMessage = "Invalid email or password";
@@ -100,10 +106,11 @@ namespace ResearchGate.Controllers
             }
             catch (Exception error)
             {
-                ViewBag.ErrorMessage = "Error: " + error;
-                return View("Index");
+                ViewBag.ErrorMessage = "Error!";
+                return View();
             }
         }
+
 
         public ActionResult Logout()
         {

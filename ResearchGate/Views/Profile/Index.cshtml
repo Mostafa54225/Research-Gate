@@ -1,0 +1,14 @@
+﻿@model ResearchGate.Models.Author
+@{
+    ViewBag.Title = "Index";
+}
+
+@if (Model != null)
+{
+    <h2>Hello @Model.FirstName @Model.LastName</h2>
+} else
+{
+    <h2>Profile Not Found</h2>
+}
+
+
