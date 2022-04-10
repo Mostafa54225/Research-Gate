@@ -1,14 +1,101 @@
 ﻿@model ResearchGate.Models.Author
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "My Profile";
+    
 }
-
+<link href="~/Content/Designs/ProfileCard.css" rel="stylesheet" />
+<link href="~/Content/Designs/FormAccount.css" rel="stylesheet" />
 @if (Model != null)
 {
-    <h2>Hello @Model.FirstName @Model.LastName</h2>
-} else
+<div class="card" id="card">
+    @if (Model.Image != null)
+    {
+        <img class="profileImage" src="data:image;base64,@System.Convert.ToBase64String(Model.Image)" alt="Profile Image" style="width: 250px; height: 300px;">
+    } else
+    {
+        <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="Profile Image" style="width: 250px; height: 300px;"/>        
+    }
+
+    <div class="container" >
+        <h3 class="content"><b>@Model.Username</b></h3>
+        <p class="content">@Model.FirstName </p>
+        <p class="content">@Model.LastName </p>
+        <p class="content">@Model.Mobile </p>
+        <p class="content">@Model.University </p>
+        <p class="content">@Model.Department </p>
+
+        @if (Model.Username == User.Identity.Name)
+        {
+            <button onclick="showEditBlock()"><h4>edit</h4> </button>
+        }
+
+    </div>
+</div>
+    if (Model.Username == User.Identity.Name)
+    {
+<div class="main-block" id="edit" style="display: none;">
+
+
+    @using (Html.BeginForm(User.Identity.Name + "/Edit", "Profile", FormMethod.Post, new { enctype = "multipart/form-data", @class = "formAccount" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @style = "color: red" })
+
+
+        <h1>Edit Profile</h1>
+
+        <div class="info">
+            @Html.ValidationMessageFor(model => model.FirstName, "", new { @style = "color: red" })
+            <input class="fname" type="text" name="FirstName" value="@Model.FirstName" autocomplete="off">
+            @Html.ValidationMessageFor(model => model.LastName, "", new { @style = "color: red" })
+            <input class="lname" type="text" name="LastName" value="@Model.LastName" autocomplete="off">
+
+            @Html.ValidationMessageFor(model => model.Username, "", new { @style = "color: red" })
+            <input class="lname" type="text" name="Username" value="@Model.Username" autocomplete="off">
+
+            <p style="color: red">@ViewBag.EmailError</p>
+            <input type="email" name="Email" value="@Model.Email" autocomplete="off">
+            @Html.ValidationMessageFor(model => model.Password, "", new { @style = "color: red" })
+            <input type="password" name="Password" placeholder="Password" autocomplete="off">
+            @Html.ValidationMessageFor(model => model.Email, "", new { @style = "color: red" })
+            <input type="text" name="University" value="@Model.University" autocomplete="off">
+            <input type="text" name="Department" value="@Model.Department" autocomplete="off">
+            <input type="text" name="Mobile" value="@Model.Mobile" autocomplete="off">
+
+            
+            Update Your Profile Picture: <input type="file" name="ProfileImage" />
+
+
+        </div>
+        <input type="submit" class="submitButton" name="submit" value="Submit" />
+
+    }
+        <button class="backToProfileButton" onclick="showCardBlock()">Back to profile</button>
+
+    </div>
+    }
+
+}
+else
+
 {
     <h2>Profile Not Found</h2>
 }
 
+
+<script>
+    function showEditBlock() {
+        var elem = document.getElementById("edit");
+        var cardElem = document.getElementById("card");
+        elem.style.display = "flex";
+        cardElem.style.display = "none";
+    }
+
+    function showCardBlock() {
+        var elem = document.getElementById("edit");
+        var cardElem = document.getElementById("card");
+        elem.style.display = "none";
+        cardElem.style.display = "block";
+    }
+</script>
 

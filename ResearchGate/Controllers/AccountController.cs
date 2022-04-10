@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using ResearchGate.Models;
 using System.Web.Security;
-
+using System.IO;
 
 namespace ResearchGate.Controllers
 {
@@ -39,11 +39,16 @@ namespace ResearchGate.Controllers
                     account.Password = password;
                     account.Salt = salt;
                     account.Username = account.Username.ToLower();
-                    db.Authors.Add(account);
                     bool isExist = db.Authors.Where(u => u.Email.ToLower().Equals(account.Email.ToLower())).FirstOrDefault() != null;
                     
                     if (!isExist)
                     {
+                        HttpPostedFileBase file = Request.Files["ProfileImage"];
+                        if(file != null)
+                        {
+                            account.Image = Utils.Helper.ConvertToBytes(file);
+                        }
+                        db.Authors.Add(account);
                         db.SaveChanges();
                         ModelState.Clear();
                         return RedirectToAction("Login");

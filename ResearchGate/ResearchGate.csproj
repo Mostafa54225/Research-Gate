@@ -166,11 +166,20 @@
     <Compile Include="Migrations\202204072330266_Username Column Added.designer.cs">
       <DependentUpon>202204072330266_Username Column Added.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202204091301092_UpdateImageColumns.cs" />
+    <Compile Include="Migrations\202204091301092_UpdateImageColumns.designer.cs">
+      <DependentUpon>202204091301092_UpdateImageColumns.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202204091408400_FixImageColumn.cs" />
+    <Compile Include="Migrations\202204091408400_FixImageColumn.designer.cs">
+      <DependentUpon>202204091408400_FixImageColumn.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\Paper.cs" />
     <Compile Include="Models\ResearchGateDBContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\Helper.cs" />
     <Compile Include="Utils\PasswordHashing.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -178,7 +187,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Designs\AccountForm.css" />
+    <Content Include="Content\Designs\FormAccount.css" />
+    <Content Include="Content\Designs\ProfileCard.css" />
     <Content Include="Content\SharedCss\navbar.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -242,6 +252,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202204072330266_Username Column Added.resx">
       <DependentUpon>202204072330266_Username Column Added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204091301092_UpdateImageColumns.resx">
+      <DependentUpon>202204091301092_UpdateImageColumns.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204091408400_FixImageColumn.resx">
+      <DependentUpon>202204091408400_FixImageColumn.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

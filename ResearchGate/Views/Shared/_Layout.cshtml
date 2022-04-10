@@ -3,11 +3,13 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @*@Styles.Render("~/Content/css")*@
-    @Scripts.Render("~/bundles/modernizr")
+    <title>@ViewBag.Title</title>
+    
+    
+    
     <link href="~/Content/SharedCss/navbar.css" rel="stylesheet" />
-    <link href="~/Content/Designs/AccountForm.css" rel="stylesheet" />
+    
+
 </head>
 <body>
     <header>
@@ -19,7 +21,9 @@
 
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <div style="color: black">@User.Identity.Name</div>
+                    <li>
+                        <a href="/Profile/@User.Identity.Name">My Profile</a>
+                    </li>
                     <li>
                         <a href="/Account/Logout">Log out</a>
                     </li>
@@ -37,7 +41,7 @@
 
     <div class="container body-content">
         @RenderBody()
-        <hr />
+        
  
     </div>
 

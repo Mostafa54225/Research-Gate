@@ -66,7 +66,7 @@ namespace ResearchGate.Models
         public string Mobile { get; set; }
 
 
-        public string ProfileImage { get; set; }
+        public byte[] Image { get; set; }
 
 
         public virtual ICollection<Paper> Papers { get; set; }
