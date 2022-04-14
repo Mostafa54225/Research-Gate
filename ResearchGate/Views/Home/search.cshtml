@@ -1,0 +1,55 @@
+﻿@model List<ResearchGate.Models.Author>
+@{
+    ViewBag.Title = "search";
+}
+<link href="~/Content/Designs/Search.css" rel="stylesheet" />
+
+
+@using (Html.BeginForm("search", "Home", FormMethod.Post))
+{
+
+    <p>Searching by:</p>
+    <input type="radio" name="option" value="name">
+    <label for="name">name</label>
+    <br>
+    <input type="radio" name="option" value="University">
+    <label for="university">University</label>
+    <br>
+    <input type="radio" name="option" value="email">
+    <label for="email">email</label>
+    <br>
+
+
+    <input type="text" placeholder="Search.." name="search">
+    <button type="submit"><i class="fa fa-search"></i></button>
+}
+
+
+@if (Model != null && Model.Count != 0)
+{
+    <table>
+        <tr>
+            <th>firstName</th>
+            <th>lastName</th>
+            <th>University</th>
+            <th>Department</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.FirstName</td>
+                <td>@item.LastName</td>
+                <td>@item.University</td>
+                <td>@item.Department</td>
+
+
+            </tr>
+        }
+
+    </table>
+}
+else
+{
+    @ViewBag.Authors
+    //@Html.ActionLink("Back", "Index", "Home")
+}

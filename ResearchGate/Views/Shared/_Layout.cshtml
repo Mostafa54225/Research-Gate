@@ -17,6 +17,8 @@
 
             <div class="logo"><a class="t" href="/">ResearchGate</a></div>
 
+
+
             <ul class="nav-links">
 
                 @if (User.Identity.IsAuthenticated)
@@ -39,10 +41,13 @@
         </nav>
     </header>
 
+
+
+
     <div class="container body-content">
         @RenderBody()
-        
- 
+
+
     </div>
 
     @Scripts.Render("~/bundles/jquery")
