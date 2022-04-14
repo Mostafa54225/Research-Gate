@@ -17,7 +17,32 @@
 
             <div class="logo"><a class="t" href="/">ResearchGate</a></div>
 
+            
+            <div>
+                @using (Html.BeginForm("search", "Home", FormMethod.Post))
+                {
+                    <div style="display:flex;">
+                        <div>
+                            <input type="text" placeholder="Search.." name="search" class="search_input">
+                        </div>
+                            <!--input type="submit">-->
+                            <!--
+                            <input type="radio" name="option" value="name">
+                            <label for="name" class="label//tion">name</label>
 
+                            <input type="radio" name="option" value="email">
+                            <label for="email" class="label_option">email</label>
+
+                            <input type="radio" name="option" value="University">
+                            <label for="university" class="label_option">University</label>-->
+                        <div>
+                            <button  name="option" value="name" class="search_btn"> name </button>
+                            <button  name="option" value="email" class="search_btn"> email </button>
+                            <button name="option" value="University" class="search_btn"> university </button>
+                        </div>
+                    </div>
+                }
+            </div>
 
             <ul class="nav-links">
 

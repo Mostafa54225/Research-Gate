@@ -31,13 +31,15 @@ namespace ResearchGate.Controllers
 
 
         [HttpGet]
-        
+       
+     
         public ActionResult search()
         {
             return View();
         }
 
         [HttpPost]
+
         public ActionResult search(string option, string search)
         {
 

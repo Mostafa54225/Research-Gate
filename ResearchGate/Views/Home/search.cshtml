@@ -4,52 +4,58 @@
 }
 <link href="~/Content/Designs/Search.css" rel="stylesheet" />
 
-
-@using (Html.BeginForm("search", "Home", FormMethod.Post))
-{
-
-    <p>Searching by:</p>
-    <input type="radio" name="option" value="name">
-    <label for="name">name</label>
-    <br>
-    <input type="radio" name="option" value="University">
-    <label for="university">University</label>
-    <br>
-    <input type="radio" name="option" value="email">
-    <label for="email">email</label>
-    <br>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
 
 
-    <input type="text" placeholder="Search.." name="search">
-    <button type="submit"><i class="fa fa-search"></i></button>
-}
+
+    <link href="~/Content/SharedCss/search.css" rel="stylesheet" />
+    <link href="~/Content/SharedCss/navbar.css" rel="stylesheet" />
 
 
-@if (Model != null && Model.Count != 0)
-{
-    <table>
-        <tr>
-            <th>firstName</th>
-            <th>lastName</th>
-            <th>University</th>
-            <th>Department</th>
-        </tr>
-        @foreach (var item in Model)
+</head>
+<body>
+
+    <div class="container">
+
+        @if (Model != null && Model.Count != 0)
         {
-            <tr>
-                <td>@item.FirstName</td>
-                <td>@item.LastName</td>
-                <td>@item.University</td>
-                <td>@item.Department</td>
+            <table>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>University</th>
+                    <th>Email</th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.FirstName</td>
+                        <td>@item.LastName</td>
+                        <td>@item.University</td>
+                        <td>@item.Email</td>
 
 
-            </tr>
+                    </tr>
+                }
+
+            </table>
+        }
+        else
+        {
+            @ViewBag.Authors
         }
 
-    </table>
-}
-else
-{
-    @ViewBag.Authors
-    //@Html.ActionLink("Back", "Index", "Home")
-}
+
+
+    </div>
+
+    @*Html.ActionLink("Back", "Index", "Home") *@
+
+
+</body>
+</html>

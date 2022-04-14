@@ -183,6 +183,8 @@
     <Compile Include="Utils\PasswordHashing.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\SharedCss\search.css" />
+    <Content Include="image\61a76f96e0dbfbf180968b80d01177be.jpg" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
