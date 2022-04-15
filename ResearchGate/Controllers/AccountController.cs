@@ -44,7 +44,7 @@ namespace ResearchGate.Controllers
                     if (!isExist)
                     {
                         HttpPostedFileBase file = Request.Files["ProfileImage"];
-                        if(file != null)
+                        if(file.ContentLength != 0)
                         {
                             account.Image = Utils.Helper.ConvertToBytes(file);
                         }
@@ -109,7 +109,7 @@ namespace ResearchGate.Controllers
                     return View();
                 }
             }
-            catch (Exception error)
+            catch (Exception)
             {
                 ViewBag.ErrorMessage = "Error!";
                 return View();

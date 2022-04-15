@@ -15,18 +15,8 @@ namespace ResearchGate.Models
         public DbSet<Author> Authors { get; set; }
         public DbSet<Paper> Papers { get; set; }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Author>()
-                .HasMany<Paper>(p => p.Papers)
-                .WithMany(a => a.Authors)
-                .Map(ap =>
-                {
-                    ap.MapLeftKey("AuthorId");
-                    ap.MapRightKey("PaperId");
-                    ap.ToTable("AuthorPapers");
-                });
-        }
+        public DbSet<AuthorPapers> AuthorPapers { get; set; }
+
     }
 }
 

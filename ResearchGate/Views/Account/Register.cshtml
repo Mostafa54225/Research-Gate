@@ -22,7 +22,7 @@
             @Html.ValidationMessageFor(model => model.Username, "", new { @style = "color: red" })
             <input class="lname" type="text" name="Username" placeholder="Username" autocomplete="off">
 
-            <p style="color: red">@ViewBag.EmailError</p>
+            @ViewBag.EmailError
             <input type="email" name="Email" placeholder="Email" autocomplete="off">
             @Html.ValidationMessageFor(model => model.Password, "", new { @style = "color: red" })
             <input type="password" name="Password" placeholder="Password" autocomplete="off">

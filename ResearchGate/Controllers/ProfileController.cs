@@ -7,7 +7,7 @@ using System.Web.Mvc;
 using ResearchGate.Models;
 using System.Data.Entity;
 using System.Web.Security;
-using System.IO;
+using ResearchGate.ViewModels;
 
 namespace ResearchGate.Controllers
 {
@@ -17,14 +17,19 @@ namespace ResearchGate.Controllers
         [HttpGet]
         [Route("profile/{username?}")]
         public ActionResult Index(string username)
+        
         {
 
             using (ResearchGateDBContext db = new ResearchGateDBContext())
             {
-                var user = (from obj in db.Authors where obj.Username.ToLower() == 
-                            (username != null ? username.ToLower(): User.Identity.Name.ToLower())
+                //var user = GetAuthor(username);
+                //var authorPapers = GetPapers(username);
+                var user = (from obj in db.Authors
+                            where obj.Username.ToLower() == (username != null ? username.ToLower() : User.Identity.Name.ToLower())
                             select obj).FirstOrDefault();
-                if(user != null)
+                
+
+                if (user != null)
                 {
                     return View(user);
                 }
@@ -37,6 +42,10 @@ namespace ResearchGate.Controllers
                 
             }
         }
+
+
+
+
 
         [HttpPost]
         [Authorize]

@@ -10,12 +10,9 @@ namespace ResearchGate.Models
 {
     public class Author
     {
-        public Author()
-        {
-            this.Papers = new HashSet<Paper>();
-        }
+        
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int AuthorId { get; set; }
 
 
         [Required(ErrorMessage = "Email is required")]
@@ -69,6 +66,7 @@ namespace ResearchGate.Models
         public byte[] Image { get; set; }
 
 
-        public virtual ICollection<Paper> Papers { get; set; }
+        
+        public virtual ICollection<AuthorPapers> AuthorPapers { get; set; }
     }
 }

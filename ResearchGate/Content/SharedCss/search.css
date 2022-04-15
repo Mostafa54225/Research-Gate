@@ -1,14 +1,27 @@
-﻿table {
-    width: 100%;
-    height: 100%;
+﻿.searchTable {
     border-radius: 5px;
 }
+
 th {
     background-color: #1c87c9;
     color: #fff;
     padding: 5px;
 }
+
 td {
     background-color: #eee;
-    padding:5px;
+    padding: 10px;
+}
+
+th {
+    padding: 10px;
+}
+
+.notFound {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: red;
+    font-size: 1.5rem;
 }

@@ -4,11 +4,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
-    
-    
-    
+
+
+
     <link href="~/Content/SharedCss/navbar.css" rel="stylesheet" />
-    
+
 
 </head>
 <body>
@@ -17,37 +17,31 @@
 
             <div class="logo"><a class="t" href="/">ResearchGate</a></div>
 
-            
+
             <div>
                 @using (Html.BeginForm("search", "Home", FormMethod.Post))
                 {
-                    <div style="display:flex;">
-                        <div>
+                    <div class="sf">
+                        <div class="textBoxSearch">
                             <input type="text" placeholder="Search.." name="search" class="search_input">
                         </div>
-                            <!--input type="submit">-->
-                            <!--
-                            <input type="radio" name="option" value="name">
-                            <label for="name" class="label//tion">name</label>
-
-                            <input type="radio" name="option" value="email">
-                            <label for="email" class="label_option">email</label>
-
-                            <input type="radio" name="option" value="University">
-                            <label for="university" class="label_option">University</label>-->
-                        <div>
-                            <button  name="option" value="name" class="search_btn"> name </button>
-                            <button  name="option" value="email" class="search_btn"> email </button>
+                        <div class="searchButtons">
+                            <button name="option" value="name" class="search_btn"> name </button>
+                            <button name="option" value="email" class="search_btn"> email </button>
                             <button name="option" value="University" class="search_btn"> university </button>
                         </div>
                     </div>
                 }
+
             </div>
 
             <ul class="nav-links">
 
                 @if (User.Identity.IsAuthenticated)
                 {
+                    <li>
+                        <a href="/Paper">Create Paper</a>
+                    </li>
                     <li>
                         <a href="/Profile/@User.Identity.Name">My Profile</a>
                     </li>
@@ -67,16 +61,11 @@
     </header>
 
 
+    @RenderBody()
 
 
-    <div class="container body-content">
-        @RenderBody()
-
-
-    </div>
 
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
 </html>

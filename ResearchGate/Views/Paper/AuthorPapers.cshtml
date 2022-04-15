@@ -1,8 +1,9 @@
-﻿@model List<ResearchGate.Models.AuthorPapers>
+﻿@model ICollection<ResearchGate.Models.AuthorPapers>
 
 @{
-    ViewBag.Title = "Home";
+    ViewBag.Title = "AuthorPapers";
 }
+
 <link href="~/Content/Designs/Papers.css" rel="stylesheet" />
 
 
@@ -12,15 +13,18 @@
     <input type="submit" id="btnDownload" value="Download" style="display:none" />
 }
 
-<div class="container">
-    @foreach (var paper in Model)
-    {
+
+@if (Model != null)
+{
+    <div class="container">
+        @foreach (var paper in Model)
+        {
         <div class="paperContainer">
             <div class="paperLeftHand">
                 <div class="paperName"><strong>Paper Name: </strong>@paper.Paper.PaperName</div>
 
 
-                <div class="paperDescription"><strong>Description:</strong> @paper.Paper.PaperDescription</div>
+                <div class="paperDescription"><strong>Description:</strong>@paper.Paper.PaperDescription</div>
             </div>
 
 
@@ -32,18 +36,20 @@
                 }
             </div>
 
+
             <div>
                 <a href="javascript:;" onclick="DownloadPaper(@paper.Paper.PaperId)">Download</a>
             </div>
 
-            <div>
-                <a href="Paper/EditPaper/@paper.Paper.PaperId">Edit</a>
-            </div>
-
         </div>
-    }
+        }
 
-</div>
+    </div>
+}
+else
+{
+    <p>No Papers Yet</p>
+}
 
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
@@ -53,3 +59,4 @@
         $("#btnDownload")[0].click();
     };
 </script>
+

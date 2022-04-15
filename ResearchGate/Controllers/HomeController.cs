@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ResearchGate.Models;
+using System.Data.Entity;
+
 namespace ResearchGate.Controllers
 {
     public class HomeController : Controller
@@ -12,7 +14,8 @@ namespace ResearchGate.Controllers
         ResearchGateDBContext db = new ResearchGateDBContext();
         public ActionResult Index()
         {
-            return View();
+            var ap = db.AuthorPapers.Include(a => a.Author).Include(a => a.Paper).GroupBy(p => p.PaperId).Select(x => x.FirstOrDefault()).ToList();
+            return View(ap);
         }
 
         public ActionResult About()

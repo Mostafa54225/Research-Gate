@@ -1,0 +1,20 @@
+﻿@model ResearchGate.Models.Paper
+@{
+    ViewBag.Title = "EditPaper";
+}
+
+<link href="~/Content/Designs/PaperForm.css" rel="stylesheet" />
+
+<div class="paperForm">
+    <h2 style="text-align: center;">New Paper</h2>
+    @using (Html.BeginForm("EditPaper/" + Model.PaperId + "/" + User.Identity.Name , "Paper", FormMethod.Post, new { enctype = "multipart/form-data", @class = "formPaper" }))
+    {
+        <input type="text" placeholder="Paper Name" name="PaperName" value="@Model.PaperName" />
+
+
+        <input type="file" name="PaperFile" />
+
+        <textarea cols="30" rows="10" name="PaperDescription" placeholder="Paper Description">@Model.PaperDescription</textarea>
+        <button type="submit">Create Paper</button>
+    }
+</div>
