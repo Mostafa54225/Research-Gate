@@ -5,6 +5,7 @@
 <link href="~/Content/Designs/PaperForm.css" rel="stylesheet" />
 
 <div class="paperForm">
+    
     <h2 style="text-align: center;">New Paper</h2>
     @using (Html.BeginForm("Create/" + Model.AuthorId, "Paper", FormMethod.Post, new { enctype = "multipart/form-data", @class = "formPaper" }))
     {

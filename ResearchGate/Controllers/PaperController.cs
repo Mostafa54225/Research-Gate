@@ -32,6 +32,7 @@ namespace ResearchGate.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [Route("Paper/Create/{authorId}")]
         public ActionResult Create(Paper paper, int authorId)
         {
@@ -55,6 +56,7 @@ namespace ResearchGate.Controllers
                 AuthorPapers authorPapers = new AuthorPapers();
                 authorPapers.AuthorId = authorId;
                 authorPapers.PaperId = paper.PaperId;
+                authorPapers.CreatedBy = authorId;
                 db.AuthorPapers.Add(authorPapers);
                 db.SaveChanges();
                 return RedirectToAction("Index", "Home");
@@ -99,7 +101,6 @@ namespace ResearchGate.Controllers
         }
 
 
-        [Authorize]
         [HttpPost]
         [Route("Paper/EditPaper/{paperId}/{username}")]
         public ActionResult EditPaper(Paper paper, int paperId, string username)
@@ -127,22 +128,47 @@ namespace ResearchGate.Controllers
 
             //var isExist = db.AuthorPapers.Where(a => a.AuthorId.Equals(user.AuthorId)).ToList();
             IQueryable<AuthorPapers> q = db.AuthorPapers.Where(a => a.AuthorId.Equals(user.AuthorId));
-            bool isExist = q.Where(x => x.PaperId == paperId).FirstOrDefault() != null;
+            bool isCreator = q.Where(x => x.PaperId == paperId && x.CreatedBy == user.AuthorId).FirstOrDefault() != null;
 
-            if(!isExist)
+            if(isCreator)
             {
                 authorPapers.AuthorId = user.AuthorId;
                 authorPapers.PaperId = paperId;
-                db.AuthorPapers.Add(authorPapers);
+                bool i = db.AuthorPapers.Where(x => x.AuthorId == user.AuthorId && x.PaperId == paperId).FirstOrDefault() != null;
+                if(!i)
+                    db.AuthorPapers.Add(authorPapers);
+
+                db.Entry(getPaper).State = EntityState.Modified;
+
+                db.SaveChanges();
+            } else
+            {
+                bool isAllow = db.Permissions.Where(x => x.SenderId == user.AuthorId && x.PaperId == paperId && x.Status == 1).FirstOrDefault() != null;
+                if(isAllow)
+                {
+                    authorPapers.AuthorId = user.AuthorId;
+                    authorPapers.PaperId = paperId;
+                    bool i = db.AuthorPapers.Where(x => x.AuthorId == user.AuthorId && x.PaperId == paperId).FirstOrDefault() != null;
+                    if (!i)
+                        db.AuthorPapers.Add(authorPapers);
+
+                    db.Entry(getPaper).State = EntityState.Modified;
+
+                    db.SaveChanges();
+                } else
+                {
+                    TempData["NotAuthorized"] = "You're not have the permession to access it";
+                    return RedirectToAction("EditPaper/"+ paperId);
+                }
             }
 
-            db.Entry(getPaper).State = EntityState.Modified;
-
-            db.SaveChanges();
+            
             return RedirectToAction("Index", "Home");
 
 
         }
+
+
 
 
         //public ActionResult GetAuthorsPaper()

@@ -18,6 +18,9 @@ namespace ResearchGate.Models
         [Column(Order =2)]
         public int PaperId { get; set; }
 
+        [Required]
+        public int CreatedBy { get; set; }
+
         public virtual Author Author { get; set; }
         public virtual Paper Paper { get; set; }
     }

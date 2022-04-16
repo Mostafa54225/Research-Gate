@@ -1,20 +1,36 @@
 ﻿@model ResearchGate.Models.Paper
 @{
     ViewBag.Title = "EditPaper";
+    var isAuthorized = TempData["NotAuthorized"];
+    var RequestStatus = TempData["ResponseToRequest"];
 }
 
 <link href="~/Content/Designs/PaperForm.css" rel="stylesheet" />
 
 <div class="paperForm">
-    <h2 style="text-align: center;">New Paper</h2>
-    @using (Html.BeginForm("EditPaper/" + Model.PaperId + "/" + User.Identity.Name , "Paper", FormMethod.Post, new { enctype = "multipart/form-data", @class = "formPaper" }))
+    @if (isAuthorized != null)
+    {
+        using (Html.BeginForm("RequestAccess/" + Model.PaperId + "/" + User.Identity.Name, "Requests", FormMethod.Post))
+        {
+            <strong style="color: red; font-size: 1.2rem; text-align: center;">@TempData["NotAuthorized"]</strong>
+            <button type="submit">Request Access</button>
+        }
+
+    }
+
+    @if(RequestStatus != null)
+    {
+        <p>@RequestStatus</p>
+    }
+
+    <p style="text-align: center;">Edit Paper @Model.PaperName</p>
+    @using (Html.BeginForm("EditPaper/" + Model.PaperId + "/" + User.Identity.Name, "Paper", FormMethod.Post, new { enctype = "multipart/form-data", @class = "formPaper" }))
     {
         <input type="text" placeholder="Paper Name" name="PaperName" value="@Model.PaperName" />
-
 
         <input type="file" name="PaperFile" />
 
         <textarea cols="30" rows="10" name="PaperDescription" placeholder="Paper Description">@Model.PaperDescription</textarea>
-        <button type="submit">Create Paper</button>
+        <button type="submit">Edit Paper</button>
     }
 </div>

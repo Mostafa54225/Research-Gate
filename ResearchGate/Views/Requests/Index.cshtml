@@ -1,0 +1,29 @@
+﻿@model ResearchGate.ViewModels.AuthoPaperViewModel
+@{
+    ViewBag.Title = "Index";
+    var mod = Model.Authors.Zip(Model.Papers, (n, w) => new { Author = n, Paper = w });
+}
+
+@if (mod?.Any() == true)
+{
+    using (Html.BeginForm("ResponseToRequest", "Requests", FormMethod.Post))
+    {
+        foreach (var item in mod)
+        {
+
+            <p>@item.Author.AuthorId</p>
+            <p>@item.Author.University</p>
+            <p>@item.Paper.PaperName</p>
+            <input type="hidden" name="SenderId" value="@item.Author.AuthorId" />
+            <input type="hidden" name="PaperId" value="@item.Paper.PaperId" />
+
+            <input type="submit" name="Status" value="1" />
+            <input type="submit" name="Status" value="-1" />
+        }
+
+    }
+
+} else
+{
+    <p>There is no requests</p>
+}

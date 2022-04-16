@@ -15,6 +15,7 @@ namespace ResearchGate.Controllers
         public ActionResult Index()
         {
             var ap = db.AuthorPapers.Include(a => a.Author).Include(a => a.Paper).GroupBy(p => p.PaperId).Select(x => x.FirstOrDefault()).ToList();
+
             return View(ap);
         }
 

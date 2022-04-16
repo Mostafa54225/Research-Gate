@@ -142,6 +142,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PaperController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\RequestsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -153,14 +154,24 @@
     <Compile Include="Migrations\202204152019471_UpdatePaperTable.Designer.cs">
       <DependentUpon>202204152019471_UpdatePaperTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202204152355249_permission access paper.cs" />
+    <Compile Include="Migrations\202204152355249_permission access paper.Designer.cs">
+      <DependentUpon>202204152355249_permission access paper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202204160008475_CreatedByCol.cs" />
+    <Compile Include="Migrations\202204160008475_CreatedByCol.Designer.cs">
+      <DependentUpon>202204160008475_CreatedByCol.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\AuthorPapers.cs" />
     <Compile Include="Models\Paper.cs" />
+    <Compile Include="Models\Permissions.cs" />
     <Compile Include="Models\ResearchGateDBContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\Helper.cs" />
     <Compile Include="Utils\PasswordHashing.cs" />
+    <Compile Include="ViewModels\AuthoPaperViewModel.cs" />
     <Compile Include="ViewModels\AuthorViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -208,6 +219,7 @@
     <Content Include="Views\Paper\EditPaper.cshtml" />
     <Content Include="Views\Paper\Index.cshtml" />
     <Content Include="Views\Paper\AuthorPapers.cshtml" />
+    <Content Include="Views\Requests\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -223,6 +235,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202204152019471_UpdatePaperTable.resx">
       <DependentUpon>202204152019471_UpdatePaperTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204152355249_permission access paper.resx">
+      <DependentUpon>202204152355249_permission access paper.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204160008475_CreatedByCol.resx">
+      <DependentUpon>202204160008475_CreatedByCol.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -17,6 +17,8 @@ namespace ResearchGate.Models
 
         public DbSet<AuthorPapers> AuthorPapers { get; set; }
 
+        public DbSet<Permissions> Permissions { get; set; }
+
     }
 }
 
