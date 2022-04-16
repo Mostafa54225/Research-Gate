@@ -50,7 +50,7 @@ namespace ResearchGate.Controllers
                 Permissions p = new Permissions { SenderId = user.AuthorId, AuthorId = authorId, PaperId = paperId };
                 db.Permissions.Add(p);
                 db.SaveChanges();
-                TempData["ResponseToRequest"] = "Request Access has successfully send";
+                TempData["ResponseToRequest"] = "Request Access has successfully sent";
             } else
             {
                 var req = db.Permissions.Where(x => x.SenderId == user.AuthorId && x.PaperId == paperId).FirstOrDefault();

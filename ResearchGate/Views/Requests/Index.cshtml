@@ -3,27 +3,45 @@
     ViewBag.Title = "Index";
     var mod = Model.Authors.Zip(Model.Papers, (n, w) => new { Author = n, Paper = w });
 }
+<link href="~/Content/SharedCss/search.css" rel="stylesheet" />
 
 @if (mod?.Any() == true)
 {
     using (Html.BeginForm("ResponseToRequest", "Requests", FormMethod.Post))
     {
-        foreach (var item in mod)
-        {
+        <table class="searchTable">
+            <tr>
+                <th>Username</th>
+                <th>University</th>
+                <th>Email</th>
+                <th>Paper Name</th>
+                <th>Approve</th>
+                <th>DisApprove</th>
+            </tr>
+            @foreach (var item in mod)
+            {
 
-            <p>@item.Author.AuthorId</p>
-            <p>@item.Author.University</p>
-            <p>@item.Paper.PaperName</p>
-            <input type="hidden" name="SenderId" value="@item.Author.AuthorId" />
-            <input type="hidden" name="PaperId" value="@item.Paper.PaperId" />
+                <input type="hidden" name="SenderId" value="@item.Author.AuthorId" />
+                <input type="hidden" name="PaperId" value="@item.Paper.PaperId" />
 
-            <input type="submit" name="Status" value="1" />
-            <input type="submit" name="Status" value="-1" />
-        }
+                <tr>
+                    <td><a href="/profile/@item.Author.Username">@item.Author.Username</a></td>
+                    <td>@item.Author.University</td>
+                    <td>@item.Author.Email</td>
+                    <td>@item.Paper.PaperName</td>
+
+
+                    <td><input type="submit" name="Status" value="1" /></td>
+                    <td><input type="submit" name="Status" value="-1" /></td>
+                </tr>
+            }
+
+        </table>
 
     }
 
-} else
+}
+else
 {
-    <p>There is no requests</p>
+<p>There is no requests</p>
 }
