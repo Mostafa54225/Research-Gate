@@ -21,7 +21,7 @@ namespace ResearchGate.Controllers
             var user = (from obj in db.Authors
                         where obj.Username.ToLower() == User.Identity.Name.ToLower()
                         select obj).FirstOrDefault();
-            var requests = db.Permissions.Where(p => p.AuthorId == user.AuthorId && p.Status == 0).ToList();
+            var requests = db.Permissions.Where(p => p.AuthorId == user.AuthorId && p.Status == "Pending").ToList();
             var authors = (from i in requests
                          join p in db.Authors on i.SenderId equals p.AuthorId select p).ToList();
             var papers = (from i in requests    
@@ -47,16 +47,16 @@ namespace ResearchGate.Controllers
                 IQueryable<AuthorPapers> q = db.AuthorPapers.Where(a => a.PaperId.Equals(getPaper.PaperId));
                 var authorId = q.Where(x => x.CreatedBy != 0).FirstOrDefault().AuthorId;
 
-                Permissions p = new Permissions { SenderId = user.AuthorId, AuthorId = authorId, PaperId = paperId };
+                Permissions p = new Permissions { SenderId = user.AuthorId, AuthorId = authorId, PaperId = paperId, Status = "Pending" };
                 db.Permissions.Add(p);
                 db.SaveChanges();
                 TempData["ResponseToRequest"] = "Request Access has successfully sent";
             } else
             {
                 var req = db.Permissions.Where(x => x.SenderId == user.AuthorId && x.PaperId == paperId).FirstOrDefault();
-                if(req.Status == -1)
+                if(req.Status == "Refuse")
                 {
-                    req.Status = 0;
+                    req.Status = "Pending";
                     db.Entry(req).State = EntityState.Modified;
                     db.SaveChanges();
                     TempData["ResponseToRequest"] = "Request Access has successfully send";
@@ -75,6 +75,8 @@ namespace ResearchGate.Controllers
         [Route("Requests/ResponseToRequest")]
         public ActionResult ResponseToRequest(Permissions p)
         {
+
+            
             var per = db.Permissions.Where(x => x.SenderId == p.SenderId && x.PaperId == p.PaperId).FirstOrDefault();
             per.Status = p.Status;
             db.Entry(per).State = EntityState.Modified;

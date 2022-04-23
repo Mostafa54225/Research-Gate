@@ -11,6 +11,7 @@ namespace ResearchGate.Controllers
     public class HomeController : Controller
     {
 
+        
         ResearchGateDBContext db = new ResearchGateDBContext();
         public ActionResult Index()
         {

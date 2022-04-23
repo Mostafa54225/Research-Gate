@@ -8,6 +8,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ResearchGate.Models;
+using ResearchGate.ViewModels;
+
 namespace ResearchGate.Controllers
 {
     public class PaperController : Controller
@@ -30,6 +32,41 @@ namespace ResearchGate.Controllers
 
             }
         }
+
+        [Route("Paper/PaperDetails/{paperId}")]
+        public ActionResult PaperDetails(int paperId)
+        {
+            var author = db.Authors.Where(x => x.Username == User.Identity.Name).SingleOrDefault();
+
+            var paper = db.Papers.Where(x => x.PaperId == paperId).FirstOrDefault();
+            var likes = db.Likes.Where(x => x.PaperId == paperId && x.Status == 1).Count();
+            var disLikes = db.Likes.Where(x => x.PaperId == paperId && x.Status == -1).Count();
+
+            var comments = db.Comments.Where(c => c.PaperId == paperId).Include(c => c.Author).ToList();
+
+            if (author != null)
+            {
+                CommentPaperViewModel model = new CommentPaperViewModel
+                {
+                    Paper = paper,
+                    Comment = comments
+
+                };
+                var authorReact = db.Likes.Where(x => x.PaperId == paperId && x.AuthorId == author.AuthorId).SingleOrDefault();
+                if(authorReact != null)
+                {
+                    ViewBag.AuthorReact = authorReact.Status;
+                }
+                ViewBag.Likes = likes;
+                ViewBag.DisLikes = disLikes;
+                return View(model);
+            }
+
+            return View();
+            
+        }
+
+
 
         [HttpPost]
         [Authorize]
@@ -143,7 +180,7 @@ namespace ResearchGate.Controllers
                 db.SaveChanges();
             } else
             {
-                bool isAllow = db.Permissions.Where(x => x.SenderId == user.AuthorId && x.PaperId == paperId && x.Status == 1).FirstOrDefault() != null;
+                bool isAllow = db.Permissions.Where(x => x.SenderId == user.AuthorId && x.PaperId == paperId && x.Status == "Approve").FirstOrDefault() != null;
                 if(isAllow)
                 {
                     authorPapers.AuthorId = user.AuthorId;
@@ -170,27 +207,32 @@ namespace ResearchGate.Controllers
 
 
 
-
-        //public ActionResult GetAuthorsPaper()
-
-        //{
-        //    using(ResearchGateDBContext db = new ResearchGateDBContext())
-        //    {
-        //        var ap = db.AuthorPapers.Include(a => a.Author).Include(a => a.Paper).GroupBy(p => p.PaperId).Select(x => x.FirstOrDefault()).ToList();
-        //        return View("Index");
-        //    }
-        //}
-
-        //public ActionResult GetPapers()
-        //{
-        //    using(ResearchGateDBContext db = new ResearchGateDBContext())
-        //    {
-        //        var ap = db.Papers.Include(a => a.AuthorPapers).ToList();
-        //        return View("Index");
-        //    }
-        //}
-
-
-
+        
+        [Authorize]
+        [HttpPost]
+        [Route("Paper/AddLike")]
+        public ActionResult AddLike(Likes like)
+        {
+            var authorId = db.Authors.SingleOrDefault(x => x.Username == User.Identity.Name).AuthorId;
+            var paperId = db.Papers.SingleOrDefault(p => p.PaperId == like.PaperId).PaperId;
+            bool isLikeExist = db.Likes.Where(x => x.AuthorId == authorId && x.PaperId == like.PaperId).SingleOrDefault() != null;
+            
+            if (isLikeExist)
+            {
+                var l = db.Likes.Where(x => x.AuthorId == authorId && x.PaperId == like.PaperId).SingleOrDefault();
+                if(l.Status == like.Status)
+                    l.Status = 0;
+                else
+                    l.Status = like.Status;
+                db.Entry(l).State = EntityState.Modified;
+            } else
+            {
+                like.AuthorId = authorId;
+                like.PaperId = paperId;
+                db.Likes.Add(like);
+            }
+            db.SaveChanges();
+            return RedirectToAction("PaperDetails/" + like.PaperId, "Paper");
+        }
     }
 }

@@ -7,38 +7,42 @@
 
 @if (mod?.Any() == true)
 {
-    using (Html.BeginForm("ResponseToRequest", "Requests", FormMethod.Post))
+
+<table class="searchTable">
+    <tr>
+        <th>Username</th>
+        <th>University</th>
+        <th>Email</th>
+        <th>Paper Name</th>
+        <th>Approve</th>
+        <th>DisApprove</th>
+    </tr>
+    @foreach (var item in mod)
     {
-        <table class="searchTable">
+
+        using (Html.BeginForm("ResponseToRequest", "Requests", FormMethod.Post))
+        {
+            <input type="hidden" name="SenderId" value="@item.Author.AuthorId" />
+            <input type="hidden" name="PaperId" value="@item.Paper.PaperId" />
+
             <tr>
-                <th>Username</th>
-                <th>University</th>
-                <th>Email</th>
-                <th>Paper Name</th>
-                <th>Approve</th>
-                <th>DisApprove</th>
+                <td><a href="/profile/@item.Author.Username">@item.Author.Username</a></td>
+                <td>@item.Author.University</td>
+                <td>@item.Author.Email</td>
+                <td>@item.Paper.PaperName</td>
+
+
+                <td><input type="submit" name="Status" value="Approve" /></td>
+                <td><input type="submit" name="Status" value="Refuse" /></td>
             </tr>
-            @foreach (var item in mod)
-            {
+        }
 
-                <input type="hidden" name="SenderId" value="@item.Author.AuthorId" />
-                <input type="hidden" name="PaperId" value="@item.Paper.PaperId" />
-
-                <tr>
-                    <td><a href="/profile/@item.Author.Username">@item.Author.Username</a></td>
-                    <td>@item.Author.University</td>
-                    <td>@item.Author.Email</td>
-                    <td>@item.Paper.PaperName</td>
-
-
-                    <td><input type="submit" name="Status" value="1" /></td>
-                    <td><input type="submit" name="Status" value="-1" /></td>
-                </tr>
-            }
-
-        </table>
 
     }
+
+</table>
+
+    
 
 }
 else

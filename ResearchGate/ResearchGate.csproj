@@ -139,6 +139,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PaperController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
@@ -162,9 +163,23 @@
     <Compile Include="Migrations\202204160008475_CreatedByCol.Designer.cs">
       <DependentUpon>202204160008475_CreatedByCol.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202204182114465_LikesModel.cs" />
+    <Compile Include="Migrations\202204182114465_LikesModel.Designer.cs">
+      <DependentUpon>202204182114465_LikesModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202204182130232_LikesModelUpdated.cs" />
+    <Compile Include="Migrations\202204182130232_LikesModelUpdated.Designer.cs">
+      <DependentUpon>202204182130232_LikesModelUpdated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202204231137198_CommentModel.cs" />
+    <Compile Include="Migrations\202204231137198_CommentModel.Designer.cs">
+      <DependentUpon>202204231137198_CommentModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\AuthorPapers.cs" />
+    <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\Likes.cs" />
     <Compile Include="Models\Paper.cs" />
     <Compile Include="Models\Permissions.cs" />
     <Compile Include="Models\ResearchGateDBContext.cs" />
@@ -173,8 +188,10 @@
     <Compile Include="Utils\PasswordHashing.cs" />
     <Compile Include="ViewModels\AuthoPaperViewModel.cs" />
     <Compile Include="ViewModels\AuthorViewModel.cs" />
+    <Compile Include="ViewModels\CommentPaperViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Designs\PaperDetailsStyle.css" />
     <Content Include="Content\Designs\PaperForm.css" />
     <Content Include="Content\Designs\Papers.css" />
     <Content Include="Content\SharedCss\search.css" />
@@ -220,9 +237,11 @@
     <Content Include="Views\Paper\Index.cshtml" />
     <Content Include="Views\Paper\AuthorPapers.cshtml" />
     <Content Include="Views\Requests\Index.cshtml" />
+    <Content Include="Views\Paper\PaperDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Comment\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -241,6 +260,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202204160008475_CreatedByCol.resx">
       <DependentUpon>202204160008475_CreatedByCol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204182114465_LikesModel.resx">
+      <DependentUpon>202204182114465_LikesModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204182130232_LikesModelUpdated.resx">
+      <DependentUpon>202204182130232_LikesModelUpdated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204231137198_CommentModel.resx">
+      <DependentUpon>202204231137198_CommentModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

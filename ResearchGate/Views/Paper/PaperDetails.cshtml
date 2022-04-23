@@ -1,0 +1,209 @@
+﻿@model ResearchGate.ViewModels.CommentPaperViewModel
+
+@{
+    ViewBag.Title = "PaperDetails";
+}
+<link href="~/Content/Designs/PaperDetailsStyle.css" rel="stylesheet" />
+
+
+@using (Html.BeginForm("DownloadFile", "Paper", FormMethod.Post))
+{
+    <input type="hidden" id="hfFileId" name="FileId" />
+    <input type="submit" id="btnDownload" value="Download" style="display:none" />
+}
+
+<h3 style="text-align: center;">Paper Details</h3>
+
+
+<div class="paperDetailsContainer">
+    <div class="paperHead">
+        <p>@Model.Paper.PaperName</p>
+        <p>@Model.Paper.PaperDescription</p>
+        <a href="javascript:;" onclick="DownloadPaper(@Model.Paper.PaperId)">Download</a>
+    </div>
+
+
+    <div class="authorSide">
+        Authors:
+        @foreach (var author in Model.Paper.AuthorPapers)
+        {
+            <p>@author.Author.Username</p>
+        }
+    </div>
+
+
+    <div class="reactSide">
+        @using (Html.BeginForm("AddLike", "Paper", FormMethod.Post))
+        {
+            <input type="hidden" name="PaperId" value="@Model.Paper.PaperId" />
+
+            <div class="likesButtons">
+                <button type="submit" name="Status" value="1">
+                    @if (ViewBag.AuthorReact == 1)
+                    {
+                        <i class="fa-solid fa-thumbs-up">@ViewBag.Likes</i>
+
+                    }
+                    else
+                    {
+                        <i class="fa-regular fa-thumbs-up">@ViewBag.Likes</i>
+                    }
+
+                </button>
+                <button type="submit" name="Status" value="-1">
+                    @if (ViewBag.AuthorReact == -1)
+                    {
+                        <i class="fa-solid fa-thumbs-down">@ViewBag.DisLikes</i>
+                    }
+                    else
+                    {
+                        <i class="fa-regular fa-thumbs-down">@ViewBag.DisLikes</i>
+                    }
+
+                </button>
+            </div>
+            
+        }
+    </div>
+
+</div>
+
+
+
+<hr />
+<div class="commentContainer">
+    <h3>Comments</h3>
+    @using (Html.BeginForm("Add/" + Model.Paper.PaperId, "Comment", FormMethod.Post))
+    {
+        <input type="text" name="CommentContent" required placeholder="Write a comment..." />
+        <input type="submit" />
+
+    }
+
+    @foreach (var comment in Model.Comment)
+    {
+        <p>@comment.Author.Username</p>
+        <div id="content" name="@comment.CommentId">
+            <p>@comment.CommentContent</p>
+
+            @if (User.Identity.Name == comment.Author.Username)
+            {
+                <button onclick="showTextBox('@comment.CommentId')">Edit</button>
+
+                using (Html.BeginForm("Delete/" + comment.CommentId, "Comment", FormMethod.Post))
+                {
+                    <button type="submit">Delete</button>
+                }
+
+            }
+        </div>
+        <div id="contentTextBox" name="@comment.CommentId" style="display: none;">
+
+            @using (Html.BeginForm("Edit/" + comment.CommentId, "Comment", FormMethod.Post))
+            {
+                <input type="text" value="@comment.CommentContent" required name="content" />
+                <input type="submit" value="Edit" />
+            }
+            <button onclick="hideTextBox('@comment.CommentId')">X</button>
+        </div>
+        <hr />
+    }
+
+
+
+</div>
+
+
+
+
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+    function showTextBox(id) {
+
+        let highlightedItems = Array.from(document.querySelectorAll("#content"));
+        for (let i = 0; i < highlightedItems.length; i++) {
+            if (highlightedItems[i].getAttribute('name') == id) {
+                highlightedItems[i].style.display = "none";
+            }
+        }
+
+        textboxighlighted = Array.from(document.querySelectorAll("#contentTextBox"));
+        for (let i = 0; i < textboxighlighted.length; i++) {
+            if (+textboxighlighted[i].getAttribute('name') == id) {
+                textboxighlighted[i].style.display = "block";
+            }
+        }
+    }
+
+    function hideTextBox(id) {
+        textboxighlighted = Array.from(document.querySelectorAll("#contentTextBox"));
+        for (let i = 0; i < textboxighlighted.length; i++) {
+            if (+textboxighlighted[i].getAttribute('name') == id) {
+                textboxighlighted[i].style.display = "none";
+            }
+        }
+
+        let highlightedItems = Array.from(document.querySelectorAll("#content"));
+        for (let i = 0; i < highlightedItems.length; i++) {
+            if (highlightedItems[i].getAttribute('name') == id) {
+                highlightedItems[i].style.display = "block";
+            }
+        }
+    }
+
+
+    function DownloadPaper(fileId) {
+        $("#hfFileId").val(fileId);
+        $("#btnDownload")[0].click();
+    };
+</script>
+
+
+@*<p>@Model.Paper.PaperName</p>
+    <p>@Model.PaperDescription</p>
+
+
+    <p>Likes: @ViewBag.Likes</p>
+
+
+    DisLikes: <p>@ViewBag.DisLikes</p>
+
+    @foreach (var author in Model.AuthorPapers)
+    {
+        <p>@author.Author.Username</p>
+    }
+
+    @using (Html.BeginForm("AddLike", "Paper", FormMethod.Post))
+    {
+        <input type="hidden" name="PaperId" value="@Model.Paper.PaperId" />
+
+
+        <button type="submit" name="Status" value="1">
+            @if (ViewBag.AuthorReact == 1)
+            {
+                <i class="fa-solid fa-thumbs-up"></i>
+
+            }
+            else
+            {
+                <i class="fa-regular fa-thumbs-up"></i>
+            }
+
+        </button>
+        <button type="submit" name="Status" value="-1">
+            @if (ViewBag.AuthorReact == -1)
+            {
+                <i class="fa-solid fa-thumbs-down"></i>
+            }
+            else
+            {
+                <i class="fa-regular fa-thumbs-down"></i>
+            }
+
+        </button>
+
+
+
+    }*@

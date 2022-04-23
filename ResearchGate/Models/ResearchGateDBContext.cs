@@ -19,6 +19,10 @@ namespace ResearchGate.Models
 
         public DbSet<Permissions> Permissions { get; set; }
 
+        public DbSet<Likes> Likes { get; set; }
+
+        public DbSet<Comment> Comments { get; set; }
+
     }
 }
 
