@@ -1,20 +1,38 @@
 ﻿.paperDetailsContainer {
-    width: 600px;
+    width: 700px;
     min-height: 400px;
+    background-color: #F5F5F5;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
-    padding: 20px;
+    overflow: hidden;
     margin: 20px auto;
     position: relative;
+    border-radius: 20px;
 }
 
-.paperDetailsContainer:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-}
+    .paperDetailsContainer:hover {
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    }
 
 .paperHead {
-    text-align:center;
+    padding: 10px;
+    text-align: center;
+    border-radius: 15px;
+    background-color: #1C87C9;
+    color: white;
+    height: 300px;
+    box-shadow: inset 0 -15px 10px -10px rgba(0,0,0,0.3);
 }
+
+    .paperHead:hover {
+        background-color: rgb(25, 141, 209);
+        transition: 0.3s;
+    }
+
+    .paperHead h1 {
+        font-size: 60px;
+    }
+
 
 .authorSide {
     margin-top: 40px;
@@ -24,11 +42,291 @@
     margin-bottom: 20px;
     position: absolute;
     bottom: 0;
-    left: 50%;
-    transform: translate(-50%);
+    left: 30%;
+    transform: translate(-20%);
+    margin-left: 25px;
 }
+
+
+
+.likeButton {
+    padding: 10px 20px;
+    background-color: #1C87C9;
+    margin: 0px 10px;
+    border-radius: 20px;
+    border: 1px solid white;
+    transition: 0.3s;
+}
+
+    .likeButton:hover {
+        background-color: #19618E;
+    }
+
+
+.downloadButton {
+    padding: 13px 20px;
+    background-color: #0F4566;
+    margin: 0px 10px;
+    border-radius: 20px;
+    border: 1px solid white;
+    transition: 0.3s;
+}
+
+    .downloadButton:hover {
+        background-color: #15405B;
+    }
+
+.dislikeButton {
+    padding: 10px 20px;
+    background-color: #870F00;
+    margin: 0px 10px;
+    border-radius: 20px;
+    border: 1px solid white;
+    transition: 0.3s;
+}
+
+    .dislikeButton:hover {
+        background-color: #660C01;
+    }
 
 .commentContainer {
     width: 1000px;
     margin: auto;
+}
+
+i {
+    padding: 5px 20px;
+    color: white;
+}
+
+.paperHead {
+    position: relative;
+}
+
+
+
+.authors p {
+    font-weight: bold;
+}
+
+.authorsContainer {
+    text-align: center;
+    width: 80px;
+    background-color: #0F4566;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    position: absolute;
+    margin-left: 600px;
+    margin-bottom: 5px;
+    z-index: 1;
+    padding: 5px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+    .authorsContainer:hover {
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
+    }
+
+    .authorsContainer .authorsName {
+        margin-left: 0;
+    }
+
+.authorsName {
+    margin-left: 10px;
+    font-size: 15px;
+    color: #1C87C9;
+    font-weight: bold;
+}
+
+.commentContainer {
+    width: 600px;
+    min-height: 400px;
+    background-color: #F5F5F5;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    margin: 50px auto;
+    position: relative;
+    border-radius: 20px;
+}
+
+    .commentContainer:hover {
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    }
+
+
+
+.commentHead {
+    text-align: center;
+    font-size: 30px;
+    background-color: #1C87C9;
+    color: white;
+    width: 600px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+    .commentHead:hover {
+        background-color: rgb(25, 141, 209);
+        transition: 0.3s;
+    }
+
+.commentFooter {
+    margin: auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.commentTextBox {
+    width: calc(70% - 18px);
+    padding: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #1c87c9;
+    border-radius: 10px;
+    outline: none;
+}
+
+.commentFooter button {
+    width: 60px;
+    height: 35px;
+    background-color: #1C87C9;
+    border-radius: 10px;
+    border: none;
+}
+
+    .commentFooter button:hover {
+        background-color: #19618E;
+    }
+
+    .commentFooter button i {
+        padding: 0;
+    }
+
+.commentDetails {
+    text-align: center;
+    margin: auto;
+    padding: 10px;
+    transition: 0.5s;
+}
+
+    .commentDetails:hover {
+        background-color: #dbdbdb;
+        margin-bottom: 20px;
+        transition: 0.5s;
+    }
+
+    .commentDetails a {
+        font-weight: 200;
+        font-size: 20px;
+    }
+
+    .commentDetails p {
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+.commentsButtons {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+    .commentsButtons button {
+        margin-top: 3px;
+        border-radius: 10px;
+        border: none;
+        height: 20px;
+    }
+
+        .commentsButtons button i {
+            padding: 0
+        }
+
+.editbutton {
+    background-color: Transparent;
+}
+
+#editbutton {
+    color: #2086c1;
+}
+
+    #editbutton:hover {
+        color: #19618E;
+    }
+
+
+.delbutton {
+    background-color: Transparent;
+}
+
+#delbutton {
+    color: red;
+}
+
+    #delbutton:hover {
+        color: #b21e1e;
+    }
+
+.editedTextbox {
+    width: calc(50% - 18px);
+    padding: 8px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #1c87c9;
+    border-radius: 10px;
+    outline: none;
+}
+
+.submitEditButton {
+    width: 60px;
+    height: 35px;
+    background-color: #1C87C9;
+    border-radius: 10px;
+    border: none;
+}
+
+    .submitEditButton i {
+        padding: 0;
+    }
+
+    .submitEditButton:hover {
+        background-color: #19618E;
+    }
+
+.closeButton {
+    width: 50px;
+    height: 35px;
+    background-color: #c40f0f;
+    color: white;
+    font-weight: 700;
+    border-radius: 10px;
+    border: none;
+}
+
+    .closeButton:hover {
+        background-color: #910f0f;
+    }
+
+.commentImg {
+    height: 50px;
+    width: 50px;
+    overflow: hidden;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+.authorProfile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
 }

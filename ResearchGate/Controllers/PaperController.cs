@@ -14,7 +14,6 @@ namespace ResearchGate.Controllers
 {
     public class PaperController : Controller
     {
-
         ResearchGateDBContext db = new ResearchGateDBContext();
 
         // GET: Paper
@@ -43,28 +42,27 @@ namespace ResearchGate.Controllers
             var disLikes = db.Likes.Where(x => x.PaperId == paperId && x.Status == -1).Count();
 
             var comments = db.Comments.Where(c => c.PaperId == paperId).Include(c => c.Author).ToList();
-
+            CommentPaperViewModel model = new CommentPaperViewModel
+            {
+                Paper = paper,
+                Comment = comments
+            };
             if (author != null)
             {
-                CommentPaperViewModel model = new CommentPaperViewModel
-                {
-                    Paper = paper,
-                    Comment = comments
 
-                };
                 var authorReact = db.Likes.Where(x => x.PaperId == paperId && x.AuthorId == author.AuthorId).SingleOrDefault();
                 if(authorReact != null)
                 {
                     ViewBag.AuthorReact = authorReact.Status;
                 }
-                ViewBag.Likes = likes;
-                ViewBag.DisLikes = disLikes;
-                return View(model);
-            }
 
-            return View();
-            
+            }
+            ViewBag.Likes = likes;
+            ViewBag.DisLikes = disLikes;
+            return View(model);
+
         }
+
 
 
 
@@ -111,9 +109,21 @@ namespace ResearchGate.Controllers
             contentType = paper.ContentType.ToString();
             fileName = paper.PaperName.ToString();
 
-            return File(bytes, contentType, fileName);
+            return base.File(bytes, contentType);
         }
 
+        [HttpGet]
+        public ActionResult GetFile(int? fileId)
+        {
+            byte[] bytes;
+            string fileName, contentType;
+            var paper = db.Papers.Where(p => p.PaperId == fileId).FirstOrDefault();
+            bytes = (byte[])paper.Data;
+            contentType = paper.ContentType.ToString();
+            fileName = paper.PaperName.ToString();
+
+            return base.File(bytes, contentType);
+        }
         [Route("papers/{authorId}")]
         public ActionResult AuthorPapers(int authorId)
         {
