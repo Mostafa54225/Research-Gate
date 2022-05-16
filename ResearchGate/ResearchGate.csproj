@@ -196,7 +196,9 @@
     <Compile Include="Repository\CommentRepository.cs" />
     <Compile Include="Repository\IAuthorRepository.cs" />
     <Compile Include="Repository\ICommentRepository.cs" />
+    <Compile Include="Repository\IPaperRepository.cs" />
     <Compile Include="Repository\IPermissionsRepository.cs" />
+    <Compile Include="Repository\PaperRepository.cs" />
     <Compile Include="Repository\PermissionsRepository.cs" />
     <Compile Include="Utils\Helper.cs" />
     <Compile Include="Utils\PasswordHashing.cs" />

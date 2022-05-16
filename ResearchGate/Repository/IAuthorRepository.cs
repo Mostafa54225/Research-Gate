@@ -14,10 +14,15 @@ namespace ResearchGate.Repository
         void Insert(Author author);
         void Update(Author author, string currentUser, HttpPostedFileBase file);
         void Delete(int authorId);
+        IEnumerable<Author> Search(string option, string search);
         bool CheckHashState(Author author, string currentUser);
 
         int Register(Author account, HttpPostedFileBase file);
         int Login(string email, string password);
+
+
+
+        List<AuthorPapers> GetAllAuthorPaper();
         void Save();
     }
 }

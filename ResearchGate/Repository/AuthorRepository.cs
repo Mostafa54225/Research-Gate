@@ -65,6 +65,28 @@ namespace ResearchGate.Repository
             FormsAuthentication.SetAuthCookie(user.Username, false);
         }
 
+        public IEnumerable<Author> Search(string option, string search)
+        {
+            var data = (dynamic)null;
+
+            search = search.ToLower();
+
+            switch (option)
+            {
+                case "name":
+                    data = _db.Authors.Where(x => x.FirstName.ToLower() == search || x.LastName.ToLower() == search || x.FirstName.ToLower() +
+                    x.LastName.ToLower() == search || search == null).ToList();
+                    break;
+                case "University":
+                    data = _db.Authors.Where(x => x.University.ToLower() == search || search == null).ToList();
+                    break;
+                case "email":
+                    data = _db.Authors.Where(x => x.Email.ToLower() == search || search == null).ToList();
+                    break;
+            }
+            return data;
+        }
+
         public bool CheckHashState(Author account, string currentUser)
         {
             var user = GetByUsername(currentUser);
@@ -135,6 +157,12 @@ namespace ResearchGate.Repository
             return 0;
         }
 
+
+
+        public List<AuthorPapers> GetAllAuthorPaper()
+        {
+            return _db.AuthorPapers.Include(a => a.Author).Include(a => a.Paper).GroupBy(p => p.PaperId).Select(x => x.FirstOrDefault()).ToList();
+        }
 
 
         public void Save()

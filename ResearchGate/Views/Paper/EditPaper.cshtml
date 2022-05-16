@@ -24,7 +24,7 @@
     }
 
     <p style="text-align: center;">Edit Paper @Model.PaperName</p>
-    @using (Html.BeginForm("EditPaper/" + Model.PaperId + "/" + User.Identity.Name, "Paper", FormMethod.Post, new { enctype = "multipart/form-data", @class = "formPaper" }))
+    @using (Html.BeginForm("EditPaper/" + Model.PaperId, "Paper", FormMethod.Post, new { enctype = "multipart/form-data", @class = "formPaper" }))
     {
         <input type="text" placeholder="Paper Name" name="PaperName" value="@Model.PaperName" />
 
