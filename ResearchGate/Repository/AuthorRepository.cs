@@ -45,9 +45,17 @@ namespace ResearchGate.Repository
             }
             else
             {
+
                 account.Password = user.Password;
                 account.Salt = user.Salt;
             }
+            user.FirstName = account.FirstName;
+            user.LastName = account.LastName;
+            user.Email = account.Email;
+            user.Department = account.Department;
+            user.University = account.University;
+            user.Username = account.Username;
+            user.Mobile = account.Mobile;
             if (file.ContentLength != 0)
             {
                 user.Image = Utils.Helper.ConvertToBytes(file);

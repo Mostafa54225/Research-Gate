@@ -4,33 +4,34 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ResearchGate.Models;
-
+using ResearchGate.Repository;
 
 namespace ResearchGate.Controllers
 {
     public class CommentController : Controller
     {
 
+        private ICommentRepository _commentRepository;
+
+        public CommentController()
+        {
+            _commentRepository = new CommentRepository(new ResearchGateDBContext());
+        }
+
+        public CommentController(ICommentRepository commentRepository)
+        {
+            _commentRepository = commentRepository;
+        }
+
+
         [Authorize]
         [Route("Comment/Add/{paperId}/")]
         public ActionResult Add(Comment comment, int paperId)
         {
 
-            using (ResearchGateDBContext db = new ResearchGateDBContext())
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
-                {
-                    var user = db.Authors.SingleOrDefault(c => c.Username == User.Identity.Name);
-
-                    Comment newComment = new Comment
-                    {
-                        AuthorId = user.AuthorId,
-                        CommentContent = comment.CommentContent,
-                        PaperId = paperId
-                    };
-                    db.Comments.Add(newComment);
-                    db.SaveChanges();
-                }
+                _commentRepository.AddComment(comment, paperId);
             }
             return Redirect("/Paper/PaperDetails/" + paperId);
         }
@@ -39,9 +40,7 @@ namespace ResearchGate.Controllers
         {
             using (ResearchGateDBContext db = new ResearchGateDBContext())
             {
-                Comment comment = db.Comments.Find(id);
-                db.Comments.Remove(comment);
-                db.SaveChanges();
+                var comment = _commentRepository.DeleteComment(id);
                 return Redirect("/Paper/PaperDetails/" + comment.PaperId);
             }
         }
@@ -50,9 +49,7 @@ namespace ResearchGate.Controllers
         {
             using (ResearchGateDBContext db = new ResearchGateDBContext())
             {
-                var comment = db.Comments.SingleOrDefault(c => c.CommentId == id);
-                comment.CommentContent = content;
-                db.SaveChanges();
+                var comment = _commentRepository.EditComment(id, content);
                 return Redirect("/Paper/PaperDetails/" + comment.PaperId);
             }
         }

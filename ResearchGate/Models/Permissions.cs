@@ -15,7 +15,17 @@ namespace ResearchGate.Models
 
         public int AuthorId { get; set; }
 
+        
         public int PaperId { get; set; }
+
+        [ForeignKey("SenderId")]
+        public Author Sender { get; set; }
+
+        [ForeignKey("AuthorId")]
+        public Author Author { get; set; }
+
+        [ForeignKey("PaperId")]
+        public Paper Paper { get; set; }
 
         public string Status { get; set; } 
     }

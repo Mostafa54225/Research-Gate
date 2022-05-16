@@ -12,36 +12,38 @@
     <input type="submit" id="btnDownload" value="Download" style="display:none" />
 }
 
-<div class="container">
+<div class="container" style="text-align:center; padding-top:50px;">
     @foreach (var paper in Model)
     {
-        <div class="paperContainer">
+        <div id="d1" class="paperContainer" style="padding-top:50px;">
             <div class="paperLeftHand">
                 <div class="paperName"><strong>Paper Name: </strong>@paper.Paper.PaperName</div>
+                <hr />
 
-
-                <div class="paperDescription"><strong>Description:</strong> @paper.Paper.PaperDescription</div>
+                <div style="padding:10px" class="paperDescription"><strong>Description:</strong> @paper.Paper.PaperDescription</div>
             </div>
-
+            <hr />
 
             <div class="paperRightHand">
                 <strong>Authors:</strong>
                 @foreach (var a in paper.Paper.AuthorPapers)
                 {
-                    <a href="/profile/@a.Author.Username">@a.Author.FirstName @a.Author.LastName</a>
+                    <a id="authorName" href="/profile/@a.Author.Username">@a.Author.FirstName @a.Author.LastName</a>
                 }
             </div>
+            <hr />
+            <div class="d2">
+                <div style="padding:10px">
+                    <a id="authorName" href="javascript:;" onclick="DownloadPaper(@paper.Paper.PaperId)">Download</a>
+                </div>
 
-            <div>
-                <a href="javascript:;" onclick="DownloadPaper(@paper.Paper.PaperId)">Download</a>
-            </div>
+                <div style="padding:10px">
+                    <a id="authorName" href="Paper/PaperDetails/@paper.PaperId">Go to paper</a>
+                </div>
 
-            <div>
-                <a href="Paper/PaperDetails/@paper.PaperId">Go to paper</a>
-            </div>
-
-            <div>
-                <a href="Paper/EditPaper/@paper.Paper.PaperId">Edit</a>
+                <div style="padding:10px">
+                    <a id="authorName" href="Paper/EditPaper/@paper.Paper.PaperId">Edit</a>
+                </div>
             </div>
 
         </div>

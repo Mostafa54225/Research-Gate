@@ -61,7 +61,7 @@
 
                     <input type="email" name="Email" value="@Model.Email" autocomplete="off">
                     @Html.ValidationMessageFor(model => model.Password, "", new { @style = "color: red" })
-                    <input type="password" name="Password" placeholder="Password" autocomplete="off">
+                    <input type="password" id="password" name="Password" placeholder="Password" autocomplete="off">
                     @Html.ValidationMessageFor(model => model.Email, "", new { @style = "color: red" })
                     <input type="text" name="University" value="@Model.University" autocomplete="off">
                     <input type="text" name="Department" value="@Model.Department" autocomplete="off">
@@ -72,7 +72,7 @@
 
 
                 </div>
-                <input type="submit" class="submitButton" name="submit" value="Submit" />
+                <input type="submit" class="submitButton" id="submitbutton" name="submit" value="Submit" />
 
             }
             <button class="backToProfileButton" onclick="showCardBlock()">Back to profile</button>
@@ -93,6 +93,7 @@ else
 
 
 <script>
+
     function showEditBlock() {
         var elem = document.getElementById("edit");
         var cardElem = document.getElementById("card");
@@ -106,5 +107,7 @@ else
         elem.style.display = "none";
         cardElem.style.display = "block";
     }
+
+
 </script>
 
